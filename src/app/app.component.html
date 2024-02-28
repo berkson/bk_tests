@@ -1,1 +1,30 @@
-<router-outlet />
+@if(authenticated()){
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <div class="toolbar-menu-spacer">
+      <span class="menu-text">Menu</span>
+    </div>
+    <button class="menuButton" mat-raised-button (click)='opened=!opened'>
+      @if(!opened){
+      <mat-icon aria-label="Menu" fontIcon="menu"></mat-icon>
+      } @else {
+      <mat-icon aria-label="Menu_Open" fontIcon="menu_open"></mat-icon>
+      }
+    </button>
+    <span class="toolbar-spacer"></span>
+    @if(authenticated()){
+    <a (click)="exit()" style="cursor: pointer" alt="Sair" title="Sair">
+      <mat-icon class="toolbar-icon" matTooltip="Sair"> exit_to_app </mat-icon>
+    </a>
+    }
+  </mat-toolbar-row>
+</mat-toolbar>
+}
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]='opened' mode='push'>
+    <app-sidebar [user]="user"></app-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>

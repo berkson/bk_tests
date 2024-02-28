@@ -7,8 +7,8 @@ export const loginRoutes: Routes = [
     path: '',
     component: LoginTemplateComponent,
     children: [
-      { path: '', component: LoginComponent },
-      { path: 'login', component: LoginComponent },
+      { path: '', component: LoginComponent, outlet: 'loginRouter' },
+      { path: 'login', component: LoginComponent, outlet: 'loginRouter' },
     ],
   },
 ];
