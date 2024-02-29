@@ -1,1 +1,10 @@
-<h3>Login Component</h3>
+<div>
+  <form [formGroup]="form"  (submit)="login()" novalidate>
+    <mat-form-field appearance="fill">
+      <input required="true" matInput placeholder="Usuário*" formControlName="username" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <input type="password" matInput required="true" placeholder="Senha*" formControlName="password" />
+    </mat-form-field>
+  </form>
+</div>

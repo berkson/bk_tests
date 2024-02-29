@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, Inject } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideRouter,
@@ -7,31 +7,44 @@ import {
 } from '@angular/router';
 
 import {
+  HttpXsrfTokenExtractor,
   provideHttpClient,
   withInterceptors,
   withXsrfConfiguration,
 } from '@angular/common/http';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CookieService } from 'ngx-cookie-service';
 import { routes } from './app.routes';
-import { XhrInterceptor } from './shared';
-const XSRF_COOKIE_NAME = 'XSRF-TOKEN';
-const XSRF_HEADER_NAME = 'X-XSRF-TOKEN';
+import {
+  HttpXsrfCookieExtractor,
+  HttpXsrfInterceptor,
+  PtBrMatPaginatorIntl,
+  XSRF_COOKIE_NAME,
+  XSRF_HEADER_NAME,
+  XhrInterceptor,
+} from './shared';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     CookieService,
+    { provide: HttpXsrfTokenExtractor, useClass: HttpXsrfCookieExtractor },
     provideHttpClient(
+      withInterceptors([XhrInterceptor, HttpXsrfInterceptor]),
       withXsrfConfiguration({
-        cookieName: XSRF_COOKIE_NAME,
-        headerName: XSRF_HEADER_NAME,
-      }),
-      withInterceptors([XhrInterceptor])
+        cookieName: Inject(XSRF_COOKIE_NAME),
+        headerName: Inject(XSRF_HEADER_NAME),
+      })
     ),
     provideRouter(
       routes,
       withComponentInputBinding(),
       withRouterConfig({ onSameUrlNavigation: 'reload' })
     ),
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { strict: true } },
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl },
   ],
 };
