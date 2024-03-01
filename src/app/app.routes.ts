@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { HomepageComponent } from './home';
 
 export const routes: Routes = [
   {
@@ -7,5 +8,9 @@ export const routes: Routes = [
       import('./authentication/login/components/login.routes').then(
         (mod) => mod.loginRoutes
       ),
+  },
+  {
+    path: 'homepage',
+    component: HomepageComponent,
   },
 ];

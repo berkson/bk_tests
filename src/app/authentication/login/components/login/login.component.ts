@@ -79,14 +79,11 @@ export class LoginComponent implements OnInit {
     this.httpUtils.user.auth = `Basic ${window.btoa(authString)}`;
 
     if (isAdmin) {
-      this.router
-        .navigate(['cadastra-comunicados'], {
-          queryParams: { roles: user.roles },
-        })
-        .then(() => {
-          window.location.reload();
-        });
+      this.router.navigate(['homepage']).then(() => {
+        //window.location.reload(); // verificar a correção para isso aqui
+      });
       return;
     }
   }
 }
+
