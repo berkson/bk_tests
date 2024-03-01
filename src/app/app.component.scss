@@ -1,6 +1,6 @@
 @use "../styles.scss" as st;
 
-$sidenav_content_padding: 1vh;
+$sidenav_content_padding: 0vh;
 $sidenav_content_height: calc(90vh - $sidenav_content_padding);
 
 .toolbar-icon {

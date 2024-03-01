@@ -13,7 +13,11 @@ import {
   withXsrfConfiguration,
 } from '@angular/common/http';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+  ErrorStateMatcher,
+  MAT_DATE_LOCALE,
+  ShowOnDirtyErrorStateMatcher,
+} from '@angular/material/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CookieService } from 'ngx-cookie-service';
 import { routes } from './app.routes';
@@ -46,5 +50,6 @@ export const appConfig: ApplicationConfig = {
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { strict: true } },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl },
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
 };

@@ -14,15 +14,11 @@ $siaf-primary: mat.define-palette(cpallete.$lmt-primary);
 $siaf-accent: mat.define-palette(cpallete.$lmt-accent, 500, 300, 900);
 $siaf-warn: mat.define-palette(cpallete.$lmt-warn);
 
-$siaf-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $siaf-primary,
-      accent: $siaf-accent,
-      warn: $siaf-warn,
-    ),
-  )
-);
+$siaf-theme: mat.define-light-theme((color: (primary: $siaf-primary,
+        accent: $siaf-accent,
+        warn: $siaf-warn,
+      ),
+    ));
 
 $color-config: mat.get-color-config($siaf-theme);
 $primary-palette: map.get($color-config, "primary");
@@ -31,28 +27,42 @@ $warn-palette: map.get($color-config, "warn");
 
 @include mat.all-component-themes($siaf-theme);
 
-$primary:  mat.get-color-from-palette($primary-palette, 500);
-$accent:  mat.get-color-from-palette($accent-palette, 500);
-$warn:  mat.get-color-from-palette($warn-palette, 500);
+$primary: mat.get-color-from-palette($primary-palette, 500);
+$accent: mat.get-color-from-palette($accent-palette, 500);
+$warn: mat.get-color-from-palette($warn-palette, 500);
 $font-family: "OpenSans-Regular, 'Helvetica Neue', sans-serif";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: $font-family; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 .style-success {
   color: white;
   background-color: green;
   white-space: pre-wrap;
 }
+
 .style-success .mat-simple-snackbar-action {
   color: white;
   white-space: pre-wrap;
 }
+
 .style-error {
   color: mat.get-color-from-palette($warn-palette, "A200");
   background-color: mat.get-color-from-palette($warn-palette, "default");
   white-space: pre-wrap;
 }
+
 .style-error .mat-simple-snackbar-action {
   color: mat.get-color-from-palette($warn-palette, "A200");
   white-space: pre-wrap;
@@ -63,7 +73,8 @@ body { margin: 0; font-family: $font-family; }
   cursor: pointer;
 }
 
-.center, ::ng-deep .center{
+.center,
+::ng-deep .center {
   text-align: center;
   text-align: -webkit-center;
 }

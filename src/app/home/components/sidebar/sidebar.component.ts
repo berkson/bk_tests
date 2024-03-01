@@ -7,8 +7,7 @@ import {
 } from '@angular/material/expansion';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { User } from '../../../shared';
-import { BrowserModule } from '@angular/platform-browser';
+import { Auths, HttpUtilService, User } from '../../../shared';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,22 +26,15 @@ import { BrowserModule } from '@angular/platform-browser';
 })
 export class SidebarComponent {
   @Input('user') user: User;
-  private _panelOpenState: boolean = true;
+  authorities: string[];
+  private _panelOpenState: boolean = false;
   private _opened: boolean = false;
   isDownloading: boolean;
 
-  constructor() {
-    this.user = new User().full(
-      1,
-      'TT01162',
-      'Berkson',
-      'berksonx@yahoo.com.br'
-    );
+  constructor(private httpUtil: HttpUtilService) {
+    this.authorities = [];
+    this.user = new User();
     this.isDownloading = false;
-  }
-
-  isAdmin(): boolean {
-    return true;
   }
 
   public get panelOpenState(): boolean {
@@ -53,7 +45,27 @@ export class SidebarComponent {
     this._panelOpenState = value;
   }
 
+  public get opened(): boolean {
+    return this._opened;
+  }
+
   public set opened(value: boolean) {
     this._opened = value;
+  }
+
+  fillAuthorities(auth: string) {
+    if (!this.authorities.includes(auth)) {
+      this.authorities.push(auth);
+    }
+  }
+
+  isAdmin(): boolean {
+    for (let role of this.httpUtil.getUserRoles()) {
+      this.fillAuthorities(role.authority!);
+      if (role.authority === Auths.ADMIN) {
+        return true;
+      }
+    }
+    return false;
   }
 }
