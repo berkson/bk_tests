@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
+import { AppComponent } from '../../app.component';
+import { Credential } from '../../authentication';
 import { Auths } from '../enums/auths';
 import { Role } from '../models/login/role.model';
 import { User } from '../models/login/user.model';
-import { AppComponent } from '../../app.component';
-import { Credential } from '../../authentication';
 
 @Injectable({
   providedIn: 'root',
@@ -56,7 +56,7 @@ export class HttpUtilService {
         finalize(() => {
           this._authenticated = false;
           this._user = new User();
-          this.router.navigate(['/login']);
+          this.router.navigate(['']);
           if (localStorage.getItem(AppComponent.USER_KEY) !== null) {
             localStorage.removeItem(AppComponent.USER_KEY);
           }

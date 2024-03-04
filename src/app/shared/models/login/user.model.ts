@@ -32,6 +32,7 @@ export class User {
       nome: this.name,
       email: this.email,
       permissoes: this.roles,
+      auth: this.auth,
     };
   }
 
@@ -41,7 +42,8 @@ export class User {
       object.codigo,
       object.nome,
       object.email,
-      object.permissoes
+      object.permissoes,
+      object.auth
     );
   }
 }

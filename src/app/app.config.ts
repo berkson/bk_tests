@@ -44,8 +44,8 @@ export const appConfig: ApplicationConfig = {
     ),
     provideRouter(
       routes,
+      withRouterConfig({onSameUrlNavigation: 'reload'}),
       withComponentInputBinding(),
-      withRouterConfig({ onSameUrlNavigation: 'reload' })
     ),
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { strict: true } },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

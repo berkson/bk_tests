@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
 
     if (isAdmin) {
       this.router.navigate(['homepage']).then(() => {
-        //window.location.reload(); // verificar a correção para isso aqui
+        window.location.reload(); // verificar a correção para isso aqui
       });
       return;
     }
